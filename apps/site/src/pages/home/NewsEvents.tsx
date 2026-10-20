@@ -22,14 +22,17 @@ export function NewsEvents({ data, shell }: { data: { title?: string }; shell: S
     <SectionShell shell={shell}>
       <Container>
         <SectionHeading title={data.title ?? t('news.title')} action={<LLink to="/actualites" className="link-arrow">{t('news.all')} <ArrowRight className="size-4" aria-hidden="true" /></LLink>} />
-        <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
+        <div className={`mt-14 grid gap-12 ${events?.length ? 'lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16' : ''}`}>
           {lead ? (
             <div className="grid gap-10">
-              <LLink to={`/actualites/${lead.slug}`} className="group block no-underline">
+              <LLink to={`/actualites/${lead.slug}`} className={`group block no-underline ${events?.length ? '' : 'lg:grid lg:grid-cols-2 lg:items-center lg:gap-12'}`}>
                 {lead.cover ? <span className="photo block overflow-hidden shadow-card"><img src={lead.cover} alt={lead.cover_alt ?? ''} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-700 group-hover:scale-105" /></span> : null}
-                <p className="mt-6 text-sm font-semibold text-green-700">{[lead.category?.name, lead.published_at ? fmt(lead.published_at, locale) : ''].filter(Boolean).join(' · ')}</p>
-                <h3 className="h-sub mt-2 group-hover:underline">{lead.title}</h3>
-                {lead.excerpt ? <p className="mt-3 max-w-[60ch] text-ink-muted">{lead.excerpt}</p> : null}
+                <span className={`block ${events?.length ? '' : 'mt-6 lg:mt-0'}`}>
+                  <span className="mt-6 block text-sm font-semibold text-green-700 lg:mt-0">{[lead.category?.name, lead.published_at ? fmt(lead.published_at, locale) : ''].filter(Boolean).join(' · ')}</span>
+                  <span className="h-sub mt-2 block group-hover:underline">{lead.title}</span>
+                  {lead.excerpt ? <span className="mt-3 block max-w-[60ch] text-ink-muted">{lead.excerpt}</span> : null}
+                  <span className="link-arrow mt-5">{t('cta.read_more')} <ArrowRight className="size-4" aria-hidden="true" /></span>
+                </span>
               </LLink>
               {rest.length ? (
                 <ul className="grid gap-8 sm:grid-cols-2">
