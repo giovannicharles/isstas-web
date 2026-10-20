@@ -1,0 +1,192 @@
+/*
+ * Tokens ISSTAS : un seul fichier a regler (voir docs/DESIGN-SYSTEM.md et docs/BRAND.md).
+ * Tailwind v4 lit ce bloc @theme et genere les utilitaires.
+ * Couleurs echantillonnees sur le logo : vert #3D7A5F (clair #90C0A8), brun #412622.
+ */
+@theme {
+  /* Vert du logo : couleur principale */
+  --color-green-50: #eff7f2;
+  --color-green-100: #dcede3;
+  --color-green-200: #bcdbc9;
+  --color-green-300: #90c0a8;
+  --color-green-400: #66a487;
+  --color-green-500: #3d7a5f; /* principal : boutons (texte blanc 5.1:1) */
+  --color-green-600: #326650;
+  --color-green-700: #285241; /* texte sur clair : 8:1 */
+  --color-green-800: #1e3e32;
+  --color-green-900: #142a22;
+
+  /* Brun du logo : contrepoint chaud, en petite quantite */
+  --color-brown-700: #5a3a34;
+  --color-brown-800: #412622;
+  --color-brown-900: #2a1916;
+
+  /* Menthe et neutres teintes de vert */
+  --color-mint-50: #f6faf8;
+  --color-mint-100: #e9f3ed;
+  --color-mint-200: #d5e8dd;
+  --color-ink: #1f2a26;
+  --color-ink-muted: #4c5a54;
+  --color-line: #d9e5de;
+  --color-danger: #a3221a;
+
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body);
+
+  /* Formes par role */
+  --radius-photo: 2.125rem; /* 34 px, un coin asymetrique (.photo) */
+  --radius-card: 1.25rem; /* 20 px */
+  --radius-panel: 1.25rem;
+  --radius-button: 999px;
+  --radius-pill: 999px;
+  --radius-field: 0.75rem; /* 12 px */
+
+  /* Ombres a plusieurs couches, teintees de vert tres sombre */
+  --shadow-soft: 0 1px 2px rgb(14 42 31 / 0.06), 0 6px 18px -8px rgb(14 42 31 / 0.12);
+  --shadow-card: 0 1px 2px rgb(14 42 31 / 0.06), 0 8px 24px -6px rgb(14 42 31 / 0.1), 0 24px 60px -28px rgb(14 42 31 / 0.18);
+  --shadow-lift: 0 1px 2px rgb(14 42 31 / 0.08), 0 14px 32px -8px rgb(14 42 31 / 0.16), 0 36px 80px -30px rgb(14 42 31 / 0.3);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-word-rise: word-rise 0.95s var(--ease-out-expo) both;
+  --animate-pulse-draw: pulse-draw 2.6s var(--ease-out-expo) 0.2s both;
+  --animate-hero-in: hero-in 0.9s var(--ease-out-expo) both;
+  --animate-slide-in: slide-in 0.35s var(--ease-out-expo) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-sheet-up: sheet-up 0.35s var(--ease-out-expo) both;
+
+  @keyframes word-rise { from { transform: translateY(105%); } to { transform: none; } }
+  @keyframes pulse-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes sheet-up { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @keyframes wave-drift { from { transform: translateX(-2%); } to { transform: translateX(2%); } }
+  @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  @keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background: #fff;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  @media (min-width: 1024px) { body { font-size: 1.125rem; } }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--color-green-800);
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-green-500); color: #fff; }
+  :focus-visible { outline: 3px solid var(--color-green-700); outline-offset: 3px; border-radius: 6px; }
+  .on-dark :focus-visible { outline-color: #fff; }
+  .on-dark h1, .on-dark h2, .on-dark h3, .on-dark h4 { color: #fff; }
+  a { text-underline-offset: 0.2em; }
+  input, textarea, select { caret-color: var(--color-green-700); }
+}
+
+@layer components {
+  /* Echelle typographique */
+  .h-hero { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.75rem, 6.5vw, 5.75rem); line-height: 1.02; letter-spacing: -0.02em; }
+  .h-section { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.08; letter-spacing: -0.02em; }
+  .h-sub { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 2.2vw, 1.75rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .measure { max-width: 68ch; }
+
+  /* Rythme vertical : 72 px mobile, 96 px tablette, 128 px desktop */
+  .section-y { padding-block: 72px; }
+  @media (min-width: 768px) { .section-y { padding-block: 96px; } }
+  @media (min-width: 1024px) { .section-y { padding-block: 128px; } }
+
+  /* Photos : angles generes, UN coin asymetrique (la forme des mains du logo) */
+  .photo { border-radius: 2.125rem 2.125rem 2.125rem 0.5rem; }
+  .photo-flip { border-radius: 2.125rem 2.125rem 0.5rem 2.125rem; }
+  .cut-leaf { border-radius: 2.125rem 2.125rem 2.125rem 0.5rem; }
+  .cut-leaf-sm { border-radius: 1.25rem 1.25rem 1.25rem 0.375rem; }
+  @media (max-width: 640px) {
+    .photo, .photo-flip, .cut-leaf { border-radius: 1.5rem 1.5rem 1.5rem 0.375rem; }
+  }
+
+  .card-lift { transition: transform 220ms var(--ease-out-expo), box-shadow 220ms var(--ease-out-expo); }
+  .card-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+
+  .link-arrow {
+    position: relative; display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--font-display); font-weight: 700; line-height: 1.3; color: var(--color-green-700);
+    text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 2px no-repeat;
+    padding-bottom: 3px; transition: background-size .3s var(--ease-out-expo), color .2s;
+  }
+  .link-arrow:hover { background-size: 0 2px; background-position: 100% 100%; color: var(--color-green-900); }
+  .on-dark .link-arrow { color: #fff; }
+
+  .nav-link {
+    position: relative; display: inline-flex; align-items: center; gap: .3rem; padding: .6rem .7rem; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 600; font-size: .95rem; text-decoration: none; color: var(--color-green-800);
+    border-radius: var(--radius-pill); transition: color .2s, background-color .2s;
+  }
+  .nav-link:hover, .nav-link[aria-expanded="true"] { background: var(--color-mint-100); }
+  .nav-link[aria-current="page"] { color: var(--color-green-500); }
+
+  .prose-isstas { max-width: 68ch; font-size: 1.125rem; line-height: 1.75; }
+  .prose-isstas p + p { margin-top: 1.15em; }
+  .prose-isstas h2 { font-size: 1.75rem; margin-top: 2em; margin-bottom: .5em; }
+  .prose-isstas ul { margin-top: 1em; display: grid; gap: .65rem; }
+  .prose-isstas ul li { padding-left: 1.6rem; position: relative; }
+  .prose-isstas ul li::before { content: ""; position: absolute; left: 0; top: .75em; width: .8rem; height: 3px; border-radius: 3px; background: var(--color-green-500); }
+
+  .field {
+    width: 100%; background: #fff; color: var(--color-ink);
+    border: 2px solid #7c8a82; border-radius: var(--radius-field); padding: .8rem 1rem; min-height: 3rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .field:hover { border-color: var(--color-ink-muted); }
+  .field:focus { outline: none; border-color: var(--color-green-700); box-shadow: 0 0 0 4px rgb(61 122 95 / .22); }
+  .field[aria-invalid="true"] { border-color: var(--color-danger); }
+  .field:disabled { background: var(--color-mint-100); cursor: not-allowed; }
+  .field::placeholder { color: #66726b; }
+
+  .bg-dots { background-image: radial-gradient(circle at 1px 1px, rgb(61 122 95 / 0.14) 1.2px, transparent 0); background-size: 28px 28px; }
+  .bg-dots-light { background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.16) 1.2px, transparent 0); background-size: 28px 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+}
+
+/* ---------- Administration : theme sombre (actif seulement avec <html class="admin-dark">) ---------- */
+.admin-dark { color-scheme: dark; }
+.admin-dark body { background: #0e1512; color: #e4eee8; }
+.admin-dark .bg-white { background-color: #17221d; }
+.admin-dark .bg-white\/90, .admin-dark .bg-white\/95 { background-color: rgb(23 34 29 / .92); }
+.admin-dark .bg-mint-50 { background-color: #0e1512; }
+.admin-dark .bg-mint-100 { background-color: #1e2d26; }
+.admin-dark .bg-mint-200 { background-color: #2a3c34; }
+.admin-dark .hover\:bg-mint-100:hover { background-color: #25382f; }
+.admin-dark .bg-green-50 { background-color: #14291f; }
+.admin-dark .bg-amber-50 { background-color: #33290f; }
+.admin-dark .hover\:bg-red-50:hover { background-color: #3a1b19; }
+.admin-dark .ring-line { --tw-ring-color: #2b3d35; }
+.admin-dark .border-line, .admin-dark .divide-line > * { border-color: #2b3d35; }
+.admin-dark .text-ink { color: #e4eee8; }
+.admin-dark .text-ink-muted { color: #a9bbb1; }
+.admin-dark .text-green-700, .admin-dark .text-green-600 { color: #86cba7; }
+.admin-dark .text-green-800, .admin-dark .text-green-900 { color: #cfe8da; }
+.admin-dark .text-danger { color: #ff8f86; }
+.admin-dark :is(h1, h2, h3, h4) { color: #eef6f1; }
+.admin-dark .field { background-color: #101a16; border-color: #3d5348; color: #e4eee8; }
+.admin-dark .field::placeholder { color: #7f9288; }
+.admin-dark .field:disabled { background-color: #1b2822; }
+.admin-dark main a:not([class]), .admin-dark .link-arrow { color: #8fd2ae; }
+.admin-dark dialog { color: #e4eee8; }
+.admin-dark .shadow-soft, .admin-dark .shadow-card { --tw-shadow-color: rgb(0 0 0 / .35); }
+.admin-dark ::selection { background: #3d7a5f; color: #fff; }

@@ -1,0 +1,21 @@
+{
+  "name": "isstas",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10",
+  "scripts": {
+    "dev:site": "pnpm --filter @isstas/site dev",
+    "dev:admin": "pnpm --filter @isstas/admin dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "check:text": "node scripts/check-hardcoded-text.mjs",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,15 @@
+{
+  "extends": "../../packages/config/tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@isstas/ui": ["../../packages/ui/src/index.ts"],
+      "@isstas/i18n": ["../../packages/i18n/src/index.ts"],
+      "@admin/*": ["../admin/src/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "../admin/src"],
+  "exclude": ["src/**/*.test.ts"]
+}
